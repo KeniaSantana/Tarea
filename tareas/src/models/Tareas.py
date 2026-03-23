@@ -2,7 +2,7 @@ from .database import Database
 
 class TareaModel:
     def __init__(self):
-    self.db = Database()
+        self.db = Database()
     
     def listar_por_usuario(self,id_usuario):
         conn=self.db.get_connection()

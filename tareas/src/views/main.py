@@ -9,6 +9,8 @@ def main(page:ft.page):
     auth_ctrl=AuthController
     task_ctrl=TareaController
     
+    def route_change(e):
+    
     def route_chance(route):
         page.view.clear()
         if page.route=="/":

@@ -13,7 +13,7 @@ dependencies = [
 ]
 [project.scripts]
 # Aqui definimos el comando corto,
-# Importante:Quitamos el prefijo "src." porque definiremos "src" como la raiz.
+# Importante:Quitamos el prefijo "src." porque definiremos "src" como la raiz
 app="main:main"
 
 [tool.uv]

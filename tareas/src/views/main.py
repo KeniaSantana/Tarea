@@ -1,27 +1,40 @@
-import flet as ft 
-from src.controllers.UserController import AuthController
-from src.controllers.TareaController import TareaController
-from src.views.loginView import loginview
-from src.views.dashboard import DashboardView
+import flet as ft
+from controllers.UserController import AuthController
+from controllers.TareaController import TareaController
+from views.LoginView import LoginView
+from views.dashboard import DashboardView
 
-def main(page:ft.page):
-    #Instanciamos los controles una sola vez
-    auth_ctrl=AuthController
-    task_ctrl=TareaController
-    
+def start(page: ft.Page):
+    auth_ctrl = AuthController()
+    task_ctrl = TareaController()
+
     def route_change(e):
-    
-    def route_chance(route):
-        page.view.clear()
-        if page.route=="/":
-            page.views.append(loginview(page,auth_ctrl))
-        elif page.route=="/deshboard":
-            page.view.append(DashboardView(page,task_ctrl))
-            #Agregas aqui el registro_view de la misma forma
-            page.update()
-            
-        page.on_route_chance=route_chance
-        page.go("/")
-        
-if __name__=="__main__":
-    ft.run(main)
+        page.views.clear()
+
+        # Caso 1: Login
+        if page.route == "/":
+            page.add(ft.Text("Caso 1"))
+            page.views.append(LoginView(page, auth_ctrl))
+
+        # Caso 2: Dashboard
+        elif page.route == "/dashboard":
+            page.views.append(DashboardView(page, task_ctrl))
+
+        # Caso de seguridad: Si algo falla, mostrar texto de error
+        if not page.views:
+            page.views.append(
+                ft.View("/", [ft.Text("Error: Ruta no encontrada o vista vacía")])
+            )
+
+        page.update()
+
+    page.on_route_change = route_change
+    # Forzamos la navegación inicial
+    page.go("/")
+
+def main():
+    # Ejecución de la app
+    ft.app(target=start)
+
+if _name_ == "_main_":
+    main()

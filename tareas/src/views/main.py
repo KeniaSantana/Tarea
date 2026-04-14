@@ -36,5 +36,5 @@ def main():
     # Ejecución de la app
     ft.app(target=start)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()

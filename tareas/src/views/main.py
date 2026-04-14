@@ -1,7 +1,7 @@
 import flet as ft
 from controllers.UserController import AuthController
 from controllers.TareaController import TareaController
-from views.LoginView import LoginView
+from views.loginView import loginView
 from views.dashboard import DashboardView
 
 def start(page: ft.Page):
@@ -14,7 +14,7 @@ def start(page: ft.Page):
         # Caso 1: Login
         if page.route == "/":
             page.add(ft.Text("Caso 1"))
-            page.views.append(LoginView(page, auth_ctrl))
+            page.views.append(loginView(page, auth_ctrl))
 
         # Caso 2: Dashboard
         elif page.route == "/dashboard":

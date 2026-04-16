@@ -1,5 +1,6 @@
 import btrypt
-from .database import Database
+from .databaseModel import Database
+
 class UsuarioModel:
     def __init__(self):
         self.db = Database()
@@ -29,4 +30,4 @@ class UsuarioModel:
         conn.close()
         if user and btrypt.checkpw(password.encode('utf-8'), user[password].encode('utf-8')):
             return user
-        return None
+        return home

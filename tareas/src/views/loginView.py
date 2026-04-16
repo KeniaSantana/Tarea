@@ -1,16 +1,16 @@
 import flet as flet    
 
-def loginview(page,auth_controlller):
+def loginview(page,auth_controller):
     email_input=ft.TextField(label="correo electronico",width=350,border_radius=10)
     pass_input=ft.TextField(label="contraseña",password=True,can_reveal_password=True,width=250,border_radius=10)
     
-    def login_click(e)
+    def login_click(e):
     user,nsg=auth_controller.login(email_input.value,pass_input.value)
     if user:
         page.session.set("user",user)# guarda sesion
         page.go("/deshboard")
     else:
-        page.snack_bar=ft.SnackBar(ft.Text(msg))
+        page.snack_bar= ft.SnackBar(ft.Text(msg))
         page.snack_bar.open=True
         page.update()
         

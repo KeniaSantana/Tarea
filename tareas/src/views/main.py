@@ -1,7 +1,7 @@
 import flet as ft
 from controllers.UserController import AuthController
 from controllers.TareaController import TareaController
-from views.loginView import loginView
+from views.LoginView import LoginView
 from views.dashboard import DashboardView
 
 def start(page: ft.Page):
@@ -11,9 +11,14 @@ def start(page: ft.Page):
     def route_change(route):
         page.views.clear()
         if page.route == "/":
-            page.views.append(loginView(page, auth_ctrl))
+            page.views.append(LoginView(page, task_ctrl))
         elif page.route == "/dashboard":
             page.views.append(DashboardView(page, task_ctrl))
+            
+            if not page.views:
+                page.views.append(
+                    ft.View("/"[ft.Text("Error: Ruta no encontrada o vista")])
+                )
 
         page.update()
 

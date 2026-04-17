@@ -2,9 +2,9 @@ README.md
 pyproject.toml
 src/controllers/TareaController.py
 src/controllers/UserController.py
-src/models/Tareas.py
-src/models/User.py
-src/models/database.py
+src/models/TareaModel.py
+src/models/UserModel.py
+src/models/databaseModel.py
 src/models/schemas.py
 src/tareas.egg-info/PKG-INFO
 src/tareas.egg-info/SOURCES.txt
@@ -12,6 +12,7 @@ src/tareas.egg-info/dependency_links.txt
 src/tareas.egg-info/entry_points.txt
 src/tareas.egg-info/requires.txt
 src/tareas.egg-info/top_level.txt
+src/views/LoginView.py
 src/views/dashboard.py
 src/views/loginView.py
 src/views/main.py

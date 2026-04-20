@@ -1,2 +1,2 @@
 [console_scripts]
-app = src.main:main
+app = main:main

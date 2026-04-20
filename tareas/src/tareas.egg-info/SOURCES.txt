@@ -1,5 +1,6 @@
 README.md
 pyproject.toml
+src/main.py
 src/controllers/TareaController.py
 src/controllers/UserController.py
 src/models/TareaModel.py

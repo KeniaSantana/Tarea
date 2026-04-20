@@ -8,17 +8,33 @@ def start(page: ft.Page):
     auth_ctrl = AuthController()
     task_ctrl = TareaController()
 
-    def route_change(route):
+    def route_change(e):
         page.views.clear()
+
         if page.route == "/":
-            page.views.append(LoginView(page, task_ctrl))
+            page.views.append(LoginView(page, auth_ctrl))
+
         elif page.route == "/dashboard":
             page.views.append(DashboardView(page, task_ctrl))
-            
-            if not page.views:
-                page.views.append(
-                    ft.View("/"[ft.Text("Error: Ruta no encontrada o vista")])
+
+        elif page.route == "/registro":
+            page.views.append(
+                ft.View(
+                    "/registro",
+                    [
+                        ft.AppBar(title=ft.Text("Registro")),
+                        ft.Text("Pantalla de registro aquí")
+                    ]
                 )
+            )
+
+        else:
+            page.views.append(
+                ft.View(
+                    route=page.route,
+                    controls=[ft.Text("Error: Ruta no encontrada")]
+                )
+            )
 
         page.update()
 
@@ -30,4 +46,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

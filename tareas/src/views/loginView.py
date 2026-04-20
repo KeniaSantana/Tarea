@@ -22,7 +22,7 @@ def LoginView(page, auth_controller):
         )
 
         if user:
-            page.session.set("user", user)  # guarda sesión
+            page.session.set("user", user)
             page.go("/dashboard")
         else:
             page.snack_bar = ft.SnackBar(ft.Text(msg))

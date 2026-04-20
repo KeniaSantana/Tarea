@@ -37,7 +37,8 @@ def start(page: ft.Page):
             )
 
         page.update() 
-        def view_pop(e):
+        
+    def view_pop(e):
             if len(page.view)>1:
                 page.view.pop()
                 top_view=page.views[-1]

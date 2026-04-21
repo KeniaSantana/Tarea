@@ -1,135 +1,57 @@
 import flet as ft
 from controllers.UserController import AuthController
-from controllers.TareaController import TareaController
+from controllers.TareasController import TareaController
+from views.LoginView import LoginView
 from views.dashboard import DashboardView
 
-
-def LoginView(page: ft.Page, auth_controller):
-
-    email_input = ft.TextField(
-        label="Correo electrónico",
-        width=350,
-        border_radius=10,
-        keyboard_type=ft.KeyboardType.EMAIL
-    )
-
-    pass_input = ft.TextField(
-        label="Contraseña",
-        password=True,
-        can_reveal_password=True,
-        width=350,
-        border_radius=10
-    )
-
-    def login_click(e):
-        if not email_input.value or not pass_input.value:
-            page.snack_bar = ft.SnackBar(
-                ft.Text("Por favor, llene todos los campos")
-            )
-            page.snack_bar.open = True
-            page.update()
-            return
-
-        user, msg = auth_controller.login(
-            email_input.value,
-            pass_input.value
-        )
-
-        if user:
-            page.session.set("user", user)
-            page.go("/dashboard")
-        else:
-            page.snack_bar = ft.SnackBar(ft.Text(msg))
-            page.snack_bar.open = True
-            page.update()
-
-    login_button = ft.ElevatedButton(
-        "Entrar",
-        on_click=login_click,
-        width=350,
-        bgcolor="blue",
-        color="white"
-    )
-
-    pass_input.on_submit = login_click
-
-    return ft.View(
-        route="/",
-        vertical_alignment=ft.MainAxisAlignment.CENTER,
-        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        appbar=ft.AppBar(
-            title=ft.Text("SIGE - Login"),
-            bgcolor="bluegrey900",
-            color="white"
-        ),
-        controls=[
-            ft.Column(
-                [
-                    ft.Text("Acceso al Sistema", size=24, weight="bold"),
-                    email_input,
-                    pass_input,
-                    login_button,
-                    ft.TextButton(
-                        "Crear una cuenta nueva",
-                        on_click=lambda e: page.go("/registro")
-                    )
-                ],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                tight=True,
-                spacing=20
-            )
-        ]
-    )
-
-
+#uv sync
 def start(page: ft.Page):
+    page.title="Sistema de inicio de sesion"
+    page.window_width = 450
+    page.window_height = 700
+    
     auth_ctrl = AuthController()
     task_ctrl = TareaController()
-
+    
     def route_change(e):
         page.views.clear()
-
+        
+        # caso 1: login
         if page.route == "/":
-            page.views.append(LoginView(page, auth_ctrl))
-
+            page.views.append(LoginView(page, task_ctrl))
+            
         elif page.route == "/dashboard":
             page.views.append(DashboardView(page, task_ctrl))
-
-        elif page.route == "/registro":
+        
+        #caso de seguridad    
+        if not page.views:
             page.views.append(
-                ft.View(
-                    route="/registro",
-                    controls=[
-                        ft.AppBar(title=ft.Text("Registro")),
-                        ft.Text("Pantalla de registro aquí")
-                    ]
-                )
+                ft.View("/", [ft.Text("Error: Ruta no encontrada o vista vacia")])
             )
-
-        else:
-            page.views.append(
-                ft.View(
-                    route=page.route,
-                    controls=[ft.Text("Error: Ruta no encontrada")]
-                )
-            )
-
+            
         page.update()
-
+        
+        
     def view_pop(e):
-        if len(page.views) > 1:   
+        if len(page.views) > 1:
             page.views.pop()
-            top_view = page.views[-1]
+            top_view = page.view[-1]
             page.go(top_view.route)
-
+    
+    #1. asignar los manejadores de evento primero
     page.on_route_change = route_change
     page.on_view_pop = view_pop
-    page.go("/")
-
+    
+    #2. IMPORTANTE, no fuerces page.route = ""
+    print("Iniciando navegacion....")
+    if page.route=="/":
+        route_change(None)
+    else:
+        page.go("/")
 
 def main():
+    #ejecucion de la app
     ft.app(target=start)
-
-
+    
 if __name__ == "__main__":
     main()

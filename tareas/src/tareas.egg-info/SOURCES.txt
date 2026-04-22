@@ -4,9 +4,9 @@ src/main.py
 src/controllers/TareaController.py
 src/controllers/UserController.py
 src/models/TareaModel.py
-src/models/UserModel.py
+src/models/UsuarioModel.py
 src/models/databaseModel.py
-src/models/schemas.py
+src/models/schemasModel.py
 src/tareas.egg-info/PKG-INFO
 src/tareas.egg-info/SOURCES.txt
 src/tareas.egg-info/dependency_links.txt
@@ -16,4 +16,3 @@ src/tareas.egg-info/top_level.txt
 src/views/LoginView.py
 src/views/dashboard.py
 src/views/loginView.py
-src/views/main.py
